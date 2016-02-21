@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        2.4
-Release:        8.11%{?dist}
+Release:        8.12%{?dist}
 Summary:        Maven JAR Plugin
 
 License:        ASL 2.0
@@ -18,14 +18,14 @@ BuildArch: noarch
 
 BuildRequires: %{?scl_prefix_java_common}javapackages-tools >= 0.7.0
 BuildRequires: %{?scl_prefix_java_common}maven-local
-BuildRequires: maven30-maven-plugin-plugin
-BuildRequires: maven30-maven-resources-plugin
-BuildRequires: maven30-maven-doxia-sitetools
-BuildRequires: maven30-maven-plugin-testing-harness
-BuildRequires: maven30-maven-archiver
-BuildRequires: maven30-plexus-archiver
+BuildRequires: %{?scl_prefix}maven-plugin-plugin
+BuildRequires: %{?scl_prefix}maven-resources-plugin
+BuildRequires: %{?scl_prefix}maven-doxia-sitetools
+BuildRequires: %{?scl_prefix}maven-plugin-testing-harness
+BuildRequires: %{?scl_prefix}maven-archiver
+BuildRequires: %{?scl_prefix}plexus-archiver
 BuildRequires: %{?scl_prefix_java_common}apache-commons-lang
-BuildRequires: maven30-plexus-utils
+BuildRequires: %{?scl_prefix}plexus-utils
 BuildRequires: %{?scl_prefix_java_common}junit
 
 %description
@@ -41,7 +41,7 @@ API documentation for %{pkg_name}.
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %patch0 -p1
 
@@ -50,14 +50,14 @@ sed -i -e "s|plexus-container-default|plexus-container|g" pom.xml
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # Test class MockArtifact doesn't override method getMetadata
 %mvn_build -f
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -71,6 +71,9 @@ set -e -x
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.4-8.12
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 2.4-8.11
 - maven33 rebuild
 
