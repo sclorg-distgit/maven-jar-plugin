@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        2.4
-Release:        8.12%{?dist}
+Release:        8.13%{?dist}
 Summary:        Maven JAR Plugin
 
 License:        ASL 2.0
@@ -17,7 +17,7 @@ Patch0:         %{pkg_name}-maven-core-dep.patch
 BuildArch: noarch
 
 BuildRequires: %{?scl_prefix_java_common}javapackages-tools >= 0.7.0
-BuildRequires: %{?scl_prefix_java_common}maven-local
+BuildRequires: %{?scl_prefix}maven-local
 BuildRequires: %{?scl_prefix}maven-plugin-plugin
 BuildRequires: %{?scl_prefix}maven-resources-plugin
 BuildRequires: %{?scl_prefix}maven-doxia-sitetools
@@ -71,6 +71,9 @@ set -e -x
 %doc LICENSE NOTICE
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 2.4-8.13
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 2.4-8.12
 - maven33 rebuild #2
 
